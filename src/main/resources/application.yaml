@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: marketplace-starter
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    ssl.enabled: false
+  data:
+    mongodb:
+      uri: mongodb://local:local@localhost:27017/admin?authSource=admin
+  cloud:
+    stream:
+      bindings:
+        hello-source-event-output:
+          destination: hello
+          contentType: application/json
+          binder: rabbit
+        hello-source-event-input-in-0:
+          destination: hello
+          contentType: application/json
+          binder: rabbit
+          group: hello-source-event-input
+      rabbit:
+        bindings:
+          hello-source-event-output:
+            producer:
+              routingKeyExpression: '"hello.internal.message"'
+          hello-source-event-input-in-0:
+            consumer:
+              binding-routing-key: 'hello.internal.message'
+              queueNameGroupOnly: true

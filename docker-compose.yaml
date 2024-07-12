@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    container_name: marketplace_rabbitmq
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  mongodb:
+    container_name: marketplace_mongodb
+    image: mongo:4.2.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=local
+      - MONGO_INITDB_ROOT_PASSWORD=local
+      - MONGO_INITDB_DATABASE=local
+      - MONGO_NON_ROOT_USERNAME=local
+      - MONGO_NON_ROOT_PASSWORD=local
+      - MONGODDB_USERNAME=local
+      - MONGODB_PASSWORD=local
+      - MONGODB_DATABASE=LOCAL
+    volumes:
+      - ./db/data:/data
+    ports:
+      - "27017:27017"
