@@ -12,6 +12,13 @@ spring:
     mongodb:
       uri: mongodb://local:local@localhost:27017/admin?authSource=admin
   cloud:
+    aws:
+      region:
+        static: "us-east-1"
+      credentials:
+        access-key: "test"
+        secret-key: "test"
+      endpoint: "http://localhost:4566"
     stream:
       bindings:
         hello-source-event-output:
@@ -32,3 +39,7 @@ spring:
             consumer:
               binding-routing-key: 'hello.internal.message'
               queueNameGroupOnly: true
+
+events:
+  queues:
+    local-queue: local-queue
